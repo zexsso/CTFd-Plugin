@@ -10,7 +10,8 @@ from CTFd.models import Challenges, Solves, Teams, Submissions
 from CTFd.utils import config as ctfd_config
 from CTFd.utils.dates import ctftime
 from CTFd.utils.user import get_current_team, get_current_user
-from CTFd.utils.scores import get_team_standings
+
+from .plugin_api.scoreboard import get_scoreboard
 
 PAGE_CONTENT = """
 <div class="jumbotron">
@@ -73,7 +74,7 @@ def load(app: Flask):
                     "solve_id": num_solves,
                     "solve_time": solve_time_str,
                     "value": challenge.value,
-                    "scoreboard": format_scoreboard(),
+                    "scoreboard": get_scoreboard(),
                 }
                 call_webhook(app.config["SOLVE_WEBHOOK_URL"], response)
 
@@ -154,24 +155,6 @@ def get_solvers_for_challenge(challenge: Challenges) -> Solves:
         solvers = solvers.filter(Solves.user.has(hidden=False))
 
     return solvers
-
-def format_scoreboard():
-    data = get_team_standings()
-    scoreboard = []
-    for index, item in enumerate(data):
-        team = Teams.query.filter_by(name=item[2]).first()
-        solves = team.get_solves()
-        if(index == 0):
-            print(team)
-            print(item)
-            print(solves)
-        team_score = {
-            "team": item[2],
-            "score": float(item[3]),
-            "num_solves": len(solves),
-        }
-        scoreboard.append(team_score)
-    return scoreboard
 
 
 def call_webhook(url: str, data: dict) -> None:

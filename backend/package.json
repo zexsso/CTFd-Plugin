@@ -1,11 +1,11 @@
 {
-  "name": "esaip_ctf",
+  "name": "esaipctf-webhook",
   "version": "1.0.0",
-  "description": "ctf server plugin",
+  "description": "server for esaipctf-webhook plugin",
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "nodemon index.js",
+    "start": "nodemon --ignore lastUpdate.json index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "raur3n & zexsso",
