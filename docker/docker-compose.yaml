@@ -1,0 +1,20 @@
+services:
+  nodejs:
+    container_name: webhook-nodejs
+    build: 
+      context : ./nodejs
+    expose:
+      - "3000"
+    restart: always
+
+  nginx:
+    container_name: webhook-nginx
+    build: 
+      context: ./nginx
+    ports:
+      - "80:80"
+    depends_on:
+      - nodejs
+    volumes:
+      - ./frontend/dist:/app
+    restart: always
