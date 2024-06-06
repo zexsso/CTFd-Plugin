@@ -1,123 +1,153 @@
 <template>
-	<div class="flex justify-center h-[40vh] w-full">
-		<Chart type="line" :data="chartData" :options="chartOptions" class="w-[70vw] p-10" />
-	</div>
+  <div class="flex justify-center h-[40vh] w-full">
+    <Chart
+      type="line"
+      :data="chartData"
+      :options="chartOptions"
+      class="w-[70vw] p-10"
+    />
+  </div>
 </template>
 
 <script setup>
-	import { ref, onMounted } from "vue"
+import { ref, onMounted } from "vue";
+import { useAppStore } from "../stores/appStore";
 
-	let data = [
-		{ Equipe: "Byting Wolves", Score: 2000, NombreChallengesValides: 1 },
-		{ Equipe: "Code Crusaders", Score: 950, NombreChallengesValides: 9 },
-		{ Equipe: "Debugging Ninjas", Score: 900, NombreChallengesValides: 8 },
-		{ Equipe: "Syntax Sorcerers", Score: 850, NombreChallengesValides: 7 },
-		{ Equipe: "Binary Beasts", Score: 800, NombreChallengesValides: 6 },
-		{ Equipe: "Compiling Wizards", Score: 750, NombreChallengesValides: 5 },
-		{ Equipe: "Algorithm Avengers", Score: 700, NombreChallengesValides: 4 },
-		{ Equipe: "Pseudocode Pirates", Score: 650, NombreChallengesValides: 3 },
-		{ Equipe: "Programming Pioneers", Score: 600, NombreChallengesValides: 2 },
-		{ Equipe: "Data Divas", Score: 550, NombreChallengesValides: 1 },
-		{ Equipe: "Compiling Wizards", Score: 750, NombreChallengesValides: 5 },
-		{ Equipe: "Algorithm Avengers", Score: 700, NombreChallengesValides: 4 },
-		{ Equipe: "Pseudocode Pirates", Score: 650, NombreChallengesValides: 3 },
-		{ Equipe: "Programming Pioneers", Score: 600, NombreChallengesValides: 2 },
-		{ Equipe: "Data Divas", Score: 550, NombreChallengesValides: 1 },
-	]
+// Importer l'adaptateur de date
+import "chartjs-adapter-date-fns";
 
-	const products = ref([])
+const appStore = useAppStore();
 
-	const chartData = ref()
-	const chartOptions = ref()
+const chartData = ref();
+const chartOptions = ref();
 
-	const maxTeam = 10
+const maxTeam = 10;
 
-	onMounted(() => {
-		chartData.value = setChartData()
-		chartOptions.value = setChartOptions()
+// Couleurs prédéfinies
+const colors = [
+  "#FF6384",
+  "#36A2EB",
+  "#FFCE56",
+  "#4BC0C0",
+  "#9966FF",
+  "#FF9F40",
+  "#E7E9ED",
+  "#71B37C",
+  "#F7464A",
+  "#46BFBD",
+];
 
-		// Sort the data array by Score in descending order
-		data.sort((a, b) => b.Score - a.Score)
+const transformData = (data) => {
+  let transformedData = Object.values(data)
+    .map((team) => ({
+      name: team.name,
+      solves: team.solves.map((solve) => ({
+        date: new Date(solve.date),
+        value: solve.value,
+      })),
+    }))
+    .slice(0, maxTeam);
 
-		// Limiter à 10 équipes
-		const limitedData = data.slice(0, maxTeam)
+  return transformedData;
+};
 
-		// Assign dynamic Place values
-		data = limitedData.map((item, index) => {
-			return {
-				...item,
-				Place: index + 1,
-			}
-		})
+const setChartData = (data) => {
+  // Générer des labels uniques à partir des dates de toutes les équipes
+  const labels = Array.from(
+    new Set(
+      data.flatMap((team) =>
+        team.solves.map((solve) => solve.date.toISOString())
+      )
+    )
+  ).sort();
 
-		products.value = data
-	})
+  const datasets = data.map((team, index) => {
+    const cumulativeData = [];
+    let cumulativeScore = 0;
 
-	const setChartData = () => {
-		const documentStyle = getComputedStyle(document.documentElement)
+    labels.forEach((label) => {
+      const dateSolves = team.solves.filter(
+        (solve) => solve.date.toISOString() === label
+      );
 
-		return {
-			labels: ["January", "February", "March", "April", "May", "June", "July"],
-			datasets: [
-				{
-					label: "First Dataset",
-					data: [0, 69, 80, 81, 96, 155, 240],
-					fill: false,
-					borderColor: documentStyle.getPropertyValue("--cyan-500"),
-					tension: 0.4,
-				},
-				{
-					label: "Second Dataset",
-					data: [0, 38, 40, 59, 86, 97, 150],
-					fill: false,
-					borderColor: documentStyle.getPropertyValue("--gray-500"),
-					tension: 0.4,
-				},
-				{
-					label: "Third Dataset",
-					data: [0, 47, 57, 67, 87, 97, 107],
-					fill: false,
-					borderColor: documentStyle.getPropertyValue("--red-500"),
-					tension: 0.4,
-				},
-			],
-		}
-	}
+      dateSolves.forEach((solve) => {
+        cumulativeScore += solve.value;
+      });
 
-	const setChartOptions = () => {
-		const documentStyle = getComputedStyle(document.documentElement)
-		const textColor = documentStyle.getPropertyValue("--text-color")
-		const textColorSecondary = documentStyle.getPropertyValue("--text-color-secondary")
-		const surfaceBorder = documentStyle.getPropertyValue("--surface-border")
+      cumulativeData.push(cumulativeScore);
+    });
 
-		return {
-			maintainAspectRatio: false,
-			aspectRatio: 0.6,
-			plugins: {
-				legend: {
-					labels: {
-						color: textColor,
-					},
-				},
-			},
-			scales: {
-				x: {
-					ticks: {
-						color: textColorSecondary,
-					},
-					grid: {
-						color: surfaceBorder,
-					},
-				},
-				y: {
-					ticks: {
-						color: textColorSecondary,
-					},
-					grid: {
-						color: surfaceBorder,
-					},
-				},
-			},
-		}
-	}
+    return {
+      label: team.name,
+      data: cumulativeData,
+      fill: false,
+      borderColor: colors[index % colors.length], // Assign a color from the predefined array
+    };
+  });
+
+  return {
+    labels: labels,
+    datasets: datasets,
+  };
+};
+
+const setChartOptions = () => {
+  const documentStyle = getComputedStyle(document.documentElement);
+  const textColor = documentStyle.getPropertyValue("--text-color");
+  const textColorSecondary = documentStyle.getPropertyValue(
+    "--text-color-secondary"
+  );
+  const surfaceBorder = documentStyle.getPropertyValue("--surface-border");
+
+  return {
+    maintainAspectRatio: false,
+    aspectRatio: 0.6,
+    animation: {
+      duration: 0, // Désactiver les animations
+    },
+    plugins: {
+      legend: {
+        labels: {
+          color: textColor,
+        },
+      },
+    },
+    scales: {
+      x: {
+        type: "time",
+        time: {
+          unit: "minute",
+          tooltipFormat: "HH:mm:ss",
+          displayFormats: {
+            minute: "HH:mm:ss",
+          },
+        },
+        ticks: {
+          color: textColorSecondary,
+        },
+        grid: {
+          color: surfaceBorder,
+        },
+      },
+      y: {
+        ticks: {
+          color: textColorSecondary,
+        },
+        grid: {
+          color: surfaceBorder,
+        },
+      },
+    },
+  };
+};
+
+onMounted(() => {
+  chartOptions.value = setChartOptions();
+
+  appStore.socket.on("new-flag", (data) => {
+    const chartboard = transformData(data.scoreboard);
+
+    chartData.value = setChartData(chartboard);
+  });
+});
 </script>
