@@ -1,0 +1,166 @@
+{
+  "challenge": "chal3",
+  "category": "b",
+  "team": "test8",
+  "user": "user6",
+  "solve_id": 5,
+  "solve_time": "2024-06-06 20:15:08",
+  "value": 460,
+  "scoreboard": {
+    "1": {
+      "id": 2,
+      "name": "test2",
+      "solves": [
+        {
+          "challenge_id": 1,
+          "account_id": 2,
+          "team_id": 2,
+          "user_id": 2,
+          "value": 460,
+          "date": "2024-06-06T18:05:14.323445Z"
+        },
+        {
+          "challenge_id": 3,
+          "account_id": 2,
+          "team_id": 2,
+          "user_id": 2,
+          "value": 460,
+          "date": "2024-06-06T18:20:52.659755Z"
+        },
+        {
+          "challenge_id": 2,
+          "account_id": 2,
+          "team_id": 2,
+          "user_id": 2,
+          "value": 460,
+          "date": "2024-06-06T18:27:06.993306Z"
+        }
+      ],
+      "score": 1380
+    },
+    "2": {
+      "id": 4,
+      "name": "test4",
+      "solves": [
+        {
+          "challenge_id": 1,
+          "account_id": 4,
+          "team_id": 4,
+          "user_id": 4,
+          "value": 460,
+          "date": "2024-06-06T18:28:05.583524Z"
+        },
+        {
+          "challenge_id": 2,
+          "account_id": 4,
+          "team_id": 4,
+          "user_id": 4,
+          "value": 460,
+          "date": "2024-06-06T18:35:20.925219Z"
+        },
+        {
+          "challenge_id": 3,
+          "account_id": 4,
+          "team_id": 4,
+          "user_id": 4,
+          "value": 460,
+          "date": "2024-06-06T18:37:02.788621Z"
+        }
+      ],
+      "score": 1380
+    },
+    "3": {
+      "id": 5,
+      "name": "test5",
+      "solves": [
+        {
+          "challenge_id": 1,
+          "account_id": 5,
+          "team_id": 5,
+          "user_id": 5,
+          "value": 460,
+          "date": "2024-06-06T19:53:16.465930Z"
+        },
+        {
+          "challenge_id": 2,
+          "account_id": 5,
+          "team_id": 5,
+          "user_id": 5,
+          "value": 460,
+          "date": "2024-06-06T19:54:04.472829Z"
+        },
+        {
+          "challenge_id": 3,
+          "account_id": 5,
+          "team_id": 5,
+          "user_id": 5,
+          "value": 460,
+          "date": "2024-06-06T19:56:05.246971Z"
+        }
+      ],
+      "score": 1380
+    },
+    "4": {
+      "id": 6,
+      "name": "test1",
+      "solves": [
+        {
+          "challenge_id": 1,
+          "account_id": 6,
+          "team_id": 6,
+          "user_id": 6,
+          "value": 460,
+          "date": "2024-06-06T20:00:57.119883Z"
+        },
+        {
+          "challenge_id": 2,
+          "account_id": 6,
+          "team_id": 6,
+          "user_id": 6,
+          "value": 460,
+          "date": "2024-06-06T20:01:41.919256Z"
+        },
+        {
+          "challenge_id": 3,
+          "account_id": 6,
+          "team_id": 6,
+          "user_id": 6,
+          "value": 460,
+          "date": "2024-06-06T20:08:55.609830Z"
+        }
+      ],
+      "score": 1380
+    },
+    "5": {
+      "id": 7,
+      "name": "test8",
+      "solves": [
+        {
+          "challenge_id": 1,
+          "account_id": 7,
+          "team_id": 7,
+          "user_id": 7,
+          "value": 460,
+          "date": "2024-06-06T20:09:41.493534Z"
+        },
+        {
+          "challenge_id": 2,
+          "account_id": 7,
+          "team_id": 7,
+          "user_id": 7,
+          "value": 460,
+          "date": "2024-06-06T20:14:58.784563Z"
+        },
+        {
+          "challenge_id": 3,
+          "account_id": 7,
+          "team_id": 7,
+          "user_id": 7,
+          "value": 460,
+          "date": "2024-06-06T20:15:08.557043Z"
+        }
+      ],
+      "score": 1380
+    }
+  }
+}

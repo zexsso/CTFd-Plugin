@@ -37,12 +37,6 @@ const transformData = (data) => {
 };
 
 onMounted(() => {
-//   appStore.socket.emit("scoreboard", (data) => {
-//     const scoreboard = transformData(data.scoreboard);
-
-//     teams.value = scoreboard;
-//   });
-
   appStore.socket.on("new-flag", (data) => {
 	console.log(data)
     const scoreboard = transformData(data.scoreboard);

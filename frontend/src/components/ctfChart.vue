@@ -102,6 +102,9 @@ const setChartOptions = () => {
   return {
     maintainAspectRatio: false,
     aspectRatio: 0.6,
+    animation: {
+      duration: 0, // Désactiver les animations
+    },
     plugins: {
       legend: {
         labels: {
@@ -140,12 +143,6 @@ const setChartOptions = () => {
 
 onMounted(() => {
   chartOptions.value = setChartOptions();
-
-//   appStore.socket.emit("scoreboard", (data) => {
-//     const chartboard = transformData(data.scoreboard);
-
-//     chartData.value = setChartData(chartboard);
-//   });
 
   appStore.socket.on("new-flag", (data) => {
     const chartboard = transformData(data.scoreboard);
