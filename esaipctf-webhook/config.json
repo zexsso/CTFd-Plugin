@@ -1,0 +1,4 @@
+{
+    "name": "EsaipCTF Webhook Plugin",
+    "route": "/admin/esaipctf-webhook"
+}
