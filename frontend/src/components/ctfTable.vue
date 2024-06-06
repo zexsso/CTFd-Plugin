@@ -21,78 +21,6 @@ import { useAppStore } from "../stores/appStore";
 
 const appStore = useAppStore();
 
-let dataG = {
-  1: {
-    id: 23,
-    name: "byting",
-    solves: [
-      {
-        challenge_id: 3,
-        account_id: 23,
-        team_id: 23,
-        user_id: 25,
-        value: 1,
-        date: "2024-06-06T18:25:34.529088Z",
-      },
-      {
-        challenge_id: 2,
-        account_id: 23,
-        team_id: 23,
-        user_id: 25,
-        value: 90,
-        date: "2024-06-06T18:26:36.362374Z",
-      },
-      {
-        challenge_id: 1,
-        account_id: 23,
-        team_id: 23,
-        user_id: 25,
-        value: 10000,
-        date: "2024-06-06T18:39:57.262075Z",
-      },
-    ],
-    score: 10091,
-  },
-  2: {
-    id: 25,
-    name: "fgdsgdsg",
-    solves: [
-      {
-        challenge_id: 3,
-        account_id: 25,
-        team_id: 25,
-        user_id: 27,
-        value: 1,
-        date: "2024-06-06T18:44:35.764658Z",
-      },
-      {
-        challenge_id: 2,
-        account_id: 25,
-        team_id: 25,
-        user_id: 27,
-        value: 90,
-        date: "2024-06-06T18:45:42.369208Z",
-      },
-    ],
-    score: 91,
-  },
-  3: {
-    id: 24,
-    name: "ee",
-    solves: [
-      {
-        challenge_id: 3,
-        account_id: 24,
-        team_id: 24,
-        user_id: 26,
-        value: 1,
-        date: "2024-06-06T18:40:20.591081Z",
-      },
-    ],
-    score: 1,
-  },
-};
-
 const teams = ref([]);
 
 const transformData = (data) => {
@@ -109,18 +37,15 @@ const transformData = (data) => {
 };
 
 onMounted(() => {
-  const scoreboard = transformData(dataG);
+//   appStore.socket.emit("scoreboard", (data) => {
+//     const scoreboard = transformData(data.scoreboard);
 
-  teams.value = scoreboard;
-
-  appStore.socket.emit("scoreboard", (data) => {
-    const scoreboard = transformData(data);
-
-    teams.value = scoreboard;
-  });
+//     teams.value = scoreboard;
+//   });
 
   appStore.socket.on("new-flag", (data) => {
-    const scoreboard = transformData(data);
+	console.log(data)
+    const scoreboard = transformData(data.scoreboard);
 
     teams.value = scoreboard;
   });
