@@ -24,34 +24,45 @@
 	const appStore = useAppStore()
 	const popupContent = ref(false)
 	const popupFail = ref(false)
-	let lastPopupTime
 	const popupDuration = 5000
 	const popupInterval = 2000
+	let popupQueueCount = 0
+	let lasTriggerrTime = 0
 
-	appStore.socket.on("new-flag", async (data) => {
-		console.log(data)
+	async function processQueue(type, data) {
 		const nowTime = Date.now()
-		if (nowTime - lastPopupTime < popupInterval) {
-			await new Promise((r) => setTimeout(r, popupInterval - (nowTime - lastPopupTime)))
+		const popupTime = popupInterval + popupDuration
+
+		if (nowTime - lasTriggerrTime < popupTime) {
+			++popupQueueCount
+			const index = popupQueueCount
+			const waitTime = (popupTime - (nowTime - lasTriggerrTime)) * popupQueueCount
+			lasTriggerrTime = Date.now()
+			console.log(index, " waiting", waitTime)
+			await new Promise((r) => setTimeout(r, waitTime))
+			console.log(index, " showing", waitTime)
+		} else lasTriggerrTime = Date.now()
+
+		if (type === "flag") {
+			data["team_rank"] = getTeamRank(data)
+			popupContent.value = data
+		} else if (type === "fail") {
+			popupFail.value = data
 		}
-		data["team_rank"] = getTeamRank(data)
-		popupContent.value = data
+
 		await new Promise((r) => setTimeout(r, popupDuration))
-		popupContent.value = undefined
-		lastPopupTime = Date.now()
+
+		if (type === "flag") popupContent.value = undefined
+		else if (type === "fail") popupFail.value = undefined
+		--popupQueueCount
+	}
+
+	appStore.socket.on("new-flag", (data) => {
+		processQueue("flag", data)
 	})
 
-	appStore.socket.on("new-fail", async (data) => {
-		console.log(data)
-		// const nowTime = Date.now()
-		// if (nowTime - lastPopupTime < popupInterval) {
-		// 	await new Promise((r) => setTimeout(r, popupInterval - (nowTime - lastPopupTime)))
-		// }
-		// data["team_rank"] = getTeamRank(data)
-		// popupContent.value = data
-		// await new Promise((r) => setTimeout(r, popupDuration))
-		// popupContent.value = undefined
-		// lastPopupTime = Date.now()
+	appStore.socket.on("new-fail", (data) => {
+		processQueue("fail", data)
 	})
 
 	function getTeamRank(data) {

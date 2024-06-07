@@ -16,15 +16,12 @@
 							<p>{{ props.content.team }}</p>
 						</div>
 					</div>
-                    <h1 class="text-xl text-center mt-2">{{ props.content.user }} {{ eventText }} {{ props.content.challenge }}</h1>
+                    <h1 class="text-xl text-center mt-2">{{ props.content.user }} failed the challenge {{ props.content.challenge }}</h1>
                     <div class="flex justify-between">
-                        <div class="flex space-x-2">
-							<p class="font-bold">Team rank:</p>
-							<p>{{ props.content.team_rank }}</p>
-						</div>
 						<div class="flex space-x-2">
-							<p class="font-bold">User solves:</p>
-							<p>{{ props.content.user_solves }}</p>
+							<p class="font-bold">User fails :</p>
+							<p>{{ props.content.user_fails }}</p>
+                            <p>💀</p>
 						</div>
                     </div>
 				</div>
