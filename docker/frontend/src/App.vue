@@ -29,19 +29,19 @@
 	let popupQueueCount = 0
 	let lasTriggerrTime = 0
 
-	async function processQueue(type, data) {
+	async function showModal(type, data) {
 		const nowTime = Date.now()
 		const popupTime = popupInterval + popupDuration
 
-		if (nowTime - lasTriggerrTime < popupTime) {
-			++popupQueueCount
-			const index = popupQueueCount
-			const waitTime = (popupTime - (nowTime - lasTriggerrTime)) * popupQueueCount
-			lasTriggerrTime = Date.now()
-			console.log(index, " waiting", waitTime)
-			await new Promise((r) => setTimeout(r, waitTime))
-			console.log(index, " showing", waitTime)
-		} else lasTriggerrTime = Date.now()
+		// if (nowTime - lasTriggerrTime < popupTime) {
+		// 	++popupQueueCount
+		// 	const index = popupQueueCount
+		// 	const waitTime = (popupTime - (nowTime - lasTriggerrTime)) * popupQueueCount
+		// 	lasTriggerrTime = Date.now()
+		// 	console.log(index, " waiting", waitTime)
+		// 	await new Promise((r) => setTimeout(r, waitTime))
+		// 	console.log(index, " showing", waitTime)
+		// } else lasTriggerrTime = Date.now()
 
 		if (type === "flag") {
 			data["team_rank"] = getTeamRank(data)
@@ -58,11 +58,11 @@
 	}
 
 	appStore.socket.on("new-flag", (data) => {
-		processQueue("flag", data)
+		showModal("flag", data)
 	})
 
 	appStore.socket.on("new-fail", (data) => {
-		processQueue("fail", data)
+		showModal("fail", data)
 	})
 
 	function getTeamRank(data) {

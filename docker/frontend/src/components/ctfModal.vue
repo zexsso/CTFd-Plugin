@@ -55,6 +55,9 @@
 		setTimeout(() => {
 			visible.value = true
 		}, 100)
+		if (props.content.solve_id == 0) eventText.value = "failed"
+		else eventText.value = "solved"
+		console.log(props.content)
 	})
 </script>
 
