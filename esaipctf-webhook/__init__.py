@@ -77,6 +77,7 @@ def load(app: Flask):
                     "challenge": challenge.name,
                     "category": challenge.category,
                     "team": "" if team is None else team.name,
+                    "user_fails": user_fail_counter,
                     "user": user.name,
                     "top_failer": get_top_failer(user_fail_counter),
                 }

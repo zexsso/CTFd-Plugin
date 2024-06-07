@@ -6,12 +6,14 @@
 	<ctfLastFlagger class="absolute right-0 bottom-0" />
 	<ctfTop class="absolute left-0 bottom-0" />
 	<ctfModalVue v-if="popupContent" :content="popupContent" />
+	<ctfFailModal v-if="popupFail" :content="popupFail" />
 </template>
 
 <script setup>
 	import ctfTableVue from "@/components/ctfTable.vue"
 	import ctfChartVue from "@/components/ctfChart.vue"
 	import ctfModalVue from "@/components/ctfModal.vue"
+	import ctfFailModal from "./components/ctfFailModal.vue"
 	import ctfLastFlagger from "@/components/ctfLast.vue"
 	import ctfTop from "@/components/ctfTop.vue"
 	import { ref } from "vue"
@@ -21,6 +23,7 @@
 
 	const appStore = useAppStore()
 	const popupContent = ref(false)
+	const popupFail = ref(false)
 	let lastPopupTime
 	const popupDuration = 5000
 	const popupInterval = 2000
@@ -36,6 +39,19 @@
 		await new Promise((r) => setTimeout(r, popupDuration))
 		popupContent.value = undefined
 		lastPopupTime = Date.now()
+	})
+
+	appStore.socket.on("new-fail", async (data) => {
+		console.log(data)
+		// const nowTime = Date.now()
+		// if (nowTime - lastPopupTime < popupInterval) {
+		// 	await new Promise((r) => setTimeout(r, popupInterval - (nowTime - lastPopupTime)))
+		// }
+		// data["team_rank"] = getTeamRank(data)
+		// popupContent.value = data
+		// await new Promise((r) => setTimeout(r, popupDuration))
+		// popupContent.value = undefined
+		// lastPopupTime = Date.now()
 	})
 
 	function getTeamRank(data) {

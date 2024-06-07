@@ -5,6 +5,8 @@ services:
       context : ./nodejs
     expose:
       - "3000"
+    volumes:
+      - ./nodejs:/app
     restart: always
 
   nginx:

@@ -16,7 +16,7 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(cors())
 
 // Server variables
-let lastUpdate = null
+let lastUpdate = undefined
 const cacheFilePath = "lastUpdate.json"
 
 function writeToFile(data) {
@@ -39,19 +39,15 @@ app.post("/", (req, res) => {
 })
 
 app.post("/incorrect", (req, res) => {
-	// lastUpdate = req.body
-	// update fail
-	console.log(req.body)
 	io.emit("new-fail", req.body)
 	res.status(200).send("Webhook received")
-	// writeToFile(req.body)
 })
 
 io.on("connection", (socket) => {
 	console.log(socket.id + " connected")
 
-	if (lastUpdate == null) lastUpdate = readFromFile()
-	socket.emit("new-flag", lastUpdate)
+	if (!lastUpdate) lastUpdate = readFromFile()
+	if (lastUpdate) socket.emit("new-flag", lastUpdate)
 
 	socket.on("disconnect", () => console.log(socket.id + " disconnected"))
 })
