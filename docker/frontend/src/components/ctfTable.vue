@@ -2,7 +2,7 @@
 	<div class="flex justify-center h-[60vh] mx-auto">
 		<div ref="tableContainer" class="overflow-auto h-full no-scrollbar">
 			<table class="table-auto w-full">
-				<thead class="sticky top-0 bg-[#2a2a2a] text-white">
+				<thead class="sticky top-0 bg-[#2a2a2a] text-[#FF005C]">
 					<tr>
 						<th class="px-4 py-2 text-center">rank_</th>
 						<th class="px-4 py-2 text-center">team_name_</th>

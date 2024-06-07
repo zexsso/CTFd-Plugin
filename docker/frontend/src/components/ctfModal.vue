@@ -9,26 +9,24 @@
 					<div class="flex justify-between">
 						<div class="flex space-x-2">
 							<p class="font-bold">Challenge:</p>
-							<p>{{ props.content.challenge }}</p>
+							<p class="text-[#20C20E]">{{ props.content.challenge }}</p>
 						</div>
 						<div class="flex space-x-2">
 							<p class="font-bold">Team:</p>
-							<p>{{ props.content.team }}</p>
+							<p class="text-[#20C20E]">{{ props.content.team }}</p>
 						</div>
 					</div>
                     <h1 class="text-xl text-center mt-2">{{ props.content.user }} {{ eventText }} {{ props.content.challenge }}</h1>
 					<div class="flex justify-center p-4">
-						
-                        <p>GIF</p>
 					</div>
                     <div class="flex justify-between">
                         <div class="flex space-x-2">
 							<p class="font-bold">Team rank:</p>
-							<p>{{ props.content.team_rank }}</p>
+							<p class="text-[#20C20E]">{{ props.content.team_rank }}</p>
 						</div>
 						<div class="flex space-x-2">
 							<p class="font-bold">User solves:</p>
-							<p>{{ props.content.user_solves }}</p>
+							<p class="text-[#20C20E]">{{ props.content.user_solves }}</p>
 						</div>
                     </div>
 				</div>
@@ -50,14 +48,36 @@
 		},
 	})
 	const eventText = ref("")
+	const flagType = ref("")
 
 	onMounted(() => {
 		setTimeout(() => {
 			visible.value = true
 		}, 100)
-		if (props.content.solve_id == 0) eventText.value = "failed"
-		else eventText.value = "solved"
+		if (props.content.is_category_complete	== true) {
+			eventText.value = "complete the category of the challenge"
+			flagType.value = "category_complete"
+		}
+		else if(props.content.challenge == ""){
+			eventText.value = "defuse the challenge"
+			flagType.value = "defuse_bomb"
+		}
+		else if (props.content.solve_id == 0) {
+			eventText.value = "first_blood the challenge"
+			flagType.value = "first_blood"
+		}
+		else if (props.content.solve_id > 0) {
+			eventText.value = "solved the challenge"
+			flagType.value = "solved"
+		}
+
+		
+		else {
+			eventText.value = "solved"
+			console.log("failed")
+		}
 		console.log(props.content)
+
 	})
 </script>
 

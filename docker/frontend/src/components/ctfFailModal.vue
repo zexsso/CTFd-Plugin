@@ -9,18 +9,18 @@
 					<div class="flex justify-between">
 						<div class="flex space-x-2">
 							<p class="font-bold">Challenge:</p>
-							<p>{{ props.content.challenge }}</p>
+							<p class="text-[#20C20E]">{{ props.content.challenge }}</p>
 						</div>
 						<div class="flex space-x-2">
 							<p class="font-bold">Team:</p>
-							<p>{{ props.content.team }}</p>
+							<p class="text-[#20C20E]">{{ props.content.team }}</p>
 						</div>
 					</div>
                     <h1 class="text-xl text-center mt-2">{{ props.content.user }} failed the challenge {{ props.content.challenge }}</h1>
                     <div class="flex justify-between">
 						<div class="flex space-x-2">
 							<p class="font-bold">User fails :</p>
-							<p>{{ props.content.user_fails }}</p>
+							<p class="text-[#20C20E]">{{ props.content.user_fails }}</p>
                             <p>💀</p>
 						</div>
                     </div>

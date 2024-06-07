@@ -7,6 +7,7 @@
 	<ctfTop class="absolute left-0 bottom-0" />
 	<ctfModalVue v-if="popupContent" :content="popupContent" />
 	<ctfFailModal v-if="popupFail" :content="popupFail" />
+	<img src="@/assets/images/ctflogo.png" alt="ctflogo" class="absolute left-0 top-0 m-4 w-44 ">
 </template>
 
 <script setup>
