@@ -7,7 +7,6 @@
 						<th class="px-4 py-2 text-center">rank_</th>
 						<th class="px-4 py-2 text-center">team_name_</th>
 						<th class="px-4 py-2 text-center">score_</th>
-						<th class="px-4 py-2 text-center">challenges_solved_</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -15,7 +14,6 @@
 						<td class="px-4 py-2 text-center">{{ index + 1 }}</td>
 						<td class="px-4 py-2 text-center">{{ item.name }}</td>
 						<td class="px-4 py-2 text-center">{{ item.score }}</td>
-						<td class="px-4 py-2 text-center">{{ item.solves.length }}</td>
 					</tr>
 				</tbody>
 			</table>
