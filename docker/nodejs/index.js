@@ -31,11 +31,20 @@ function readFromFile() {
 }
 
 // Endpoint for receiving webhook data
-app.post("/webhook", (req, res) => {
+app.post("/", (req, res) => {
 	lastUpdate = req.body
 	io.emit("new-flag", req.body)
 	res.status(200).send("Webhook received")
 	writeToFile(req.body)
+})
+
+app.post("/incorrect", (req, res) => {
+	// lastUpdate = req.body
+	// update fail
+	console.log(req.body)
+	io.emit("new-fail", req.body)
+	res.status(200).send("Webhook received")
+	// writeToFile(req.body)
 })
 
 io.on("connection", (socket) => {

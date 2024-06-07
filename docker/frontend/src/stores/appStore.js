@@ -4,7 +4,7 @@ import { io } from "socket.io-client";
 
 export const useAppStore = defineStore("app", () => {
   // Vue & PrimeVue
-  const toast = ref();
+  const router = ref();
   const socket = ref();
 
     socket.value = io(`${import.meta.env.VITE_SOCKET_URL}`, {
@@ -16,7 +16,7 @@ export const useAppStore = defineStore("app", () => {
     });
 
   return {
-    toast,
+    router,
     socket,
   };
 });

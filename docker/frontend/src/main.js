@@ -13,12 +13,9 @@ import "./assets/styles/base.css"
 // Material Icons
 import "material-icons/iconfont/material-icons.css";
 
-import ToastService from 'primevue/toastservice';
-
 const app = createApp(App);
 
 app.use(createPinia());
-app.use(ToastService);
 app.use(PrimeVue);
 setupPrimeVue(app);
 

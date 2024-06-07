@@ -1,5 +1,5 @@
 {
-  "name": "ctfd-dashboard",
+  "name": "esaipctf-webhook",
   "version": "0.0.0",
   "private": true,
   "type": "module",
@@ -16,7 +16,8 @@
     "pinia": "^2.1.7",
     "primevue": "^3.52.0",
     "socket.io-client": "^4.7.5",
-    "vue": "^3.4.27"
+    "vue": "^3.4.27",
+    "vue-router": "^4.3.2"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.0.5",

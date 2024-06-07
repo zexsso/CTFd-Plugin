@@ -6,12 +6,11 @@ from CTFd.utils.dates import isoformat
 from CTFd.utils.scores import get_standings
 
 
-def get_scoreboard(count=10):
+def get_scoreboard():
     response = {}
     standings = get_standings()
 
-    all_team_ids = [team.account_id for team in standings]
-    team_ids = all_team_ids[:count]
+    team_ids = [team.account_id for team in standings]
 
     solves = Solves.query.filter(Solves.account_id.in_(team_ids))
     awards = Awards.query.filter(Awards.account_id.in_(team_ids))
@@ -49,12 +48,12 @@ def get_scoreboard(count=10):
     for team_id in solves_mapper:
         solves_mapper[team_id] = sorted(solves_mapper[team_id], key=lambda k: k["date"])
 
-    for i, _team in enumerate(all_team_ids):
+    for i, _team in enumerate(team_ids):
         response[i + 1] = {
             "id": standings[i].account_id,
             "name": standings[i].name,
-            "solves": solves_mapper.get(standings[i].account_id, []),
-            # "solves": None if i > count else solves_mapper.get(standings[i].account_id, []),
+            "solves": solves_mapper.get(standings[i].account_id, []) if i < 10 else [],
+            "solves_count": len(solves_mapper.get(standings[i].account_id, [])),
             "score": float(standings[i].score),
         }
 
