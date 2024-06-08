@@ -44,10 +44,8 @@
 	function scrollTable() {
 		if (waitUntil && Date.now() < waitUntil) return
 		const scrollPos = tableContainer.value.scrollTop + tableContainer.value.clientHeight
-		console.log(tableContainer.value.clientHeight, tableContainer.value.scrollHeight)
-		console.log(scrollPos)
 
-		if (scrollPos >= tableContainer.value.scrollHeight) {
+		if (scrollPos >= tableContainer.value.scrollHeight - 2) {
 			reverseScroll = true
 			waitUntil = Date.now() + 2000
 		} else if (reverseScroll && tableContainer.value.scrollTop <= 0) {
