@@ -14,6 +14,7 @@ const io = new Server(server)
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(cors())
+let numberOfClients = 0
 
 // Server variables
 let lastUpdate = undefined
@@ -44,12 +45,16 @@ app.post("/webhook/incorrect", (req, res) => {
 })
 
 io.on("connection", (socket) => {
-	console.log(socket.id + " connected")
+	++numberOfClients
+	console.log(socket.id, "connected", numberOfClients, "clients")
 
 	if (!lastUpdate) lastUpdate = readFromFile()
 	if (lastUpdate) socket.emit("new-flag", lastUpdate)
 
-	socket.on("disconnect", () => console.log(socket.id + " disconnected"))
+	socket.on("disconnect", () => {
+		--numberOfClients
+		console.log(socket.id, "disconnected", numberOfClients, "clients")
+	})
 })
 
 server.listen(3000, () => {

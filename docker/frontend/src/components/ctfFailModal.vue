@@ -16,14 +16,19 @@
 							<p class="text-[#20C20E]">{{ props.content.team }}</p>
 						</div>
 					</div>
-                    <h1 class="text-xl text-center mt-2">{{ props.content.user }} failed the challenge {{ props.content.challenge }}</h1>
-                    <div class="flex justify-between">
+					<h1 class="text-xl text-center mt-2">
+						{{ props.content.user }} failed the challenge {{ props.content.challenge }}
+					</h1>
+					<div class="flex justify-center p-4">
+						<img src="@/assets/gifs/fail.gif" alt="" />
+					</div>
+					<div class="flex justify-between">
 						<div class="flex space-x-2">
 							<p class="font-bold">User fails :</p>
 							<p class="text-[#20C20E]">{{ props.content.user_fails }}</p>
-                            <p>💀</p>
+							<p>💀</p>
 						</div>
-                    </div>
+					</div>
 				</div>
 			</div>
 		</div>

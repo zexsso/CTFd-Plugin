@@ -16,11 +16,17 @@
 							<p class="text-[#20C20E]">{{ props.content.team }}</p>
 						</div>
 					</div>
-                    <h1 class="text-xl text-center mt-2">{{ props.content.user }} {{ eventText }} {{ props.content.challenge }}</h1>
+					<h1 class="text-xl text-center mt-2">
+						{{ props.content.user }} {{ eventText }} {{ props.content.challenge }}
+					</h1>
 					<div class="flex justify-center p-4">
+						<img v-if="flagType == 'category_complete'" src="@/assets/gifs/category_complete.gif" alt="" />
+						<img v-if="flagType == 'defuse_bomb'" src="@/assets/gifs/defuse_bomb.gif" alt="" />
+						<img v-if="flagType == 'first_blood'" src="@/assets/gifs/first_blood.gif" alt="" />
+						<img v-if="flagType == 'solved'" src="@/assets/gifs/solved.gif" alt="" />
 					</div>
-                    <div class="flex justify-between">
-                        <div class="flex space-x-2">
+					<div class="flex justify-between">
+						<div class="flex space-x-2">
 							<p class="font-bold">Team rank:</p>
 							<p class="text-[#20C20E]">{{ props.content.team_rank }}</p>
 						</div>
@@ -28,7 +34,7 @@
 							<p class="font-bold">User solves:</p>
 							<p class="text-[#20C20E]">{{ props.content.user_solves }}</p>
 						</div>
-                    </div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -43,7 +49,7 @@
 	const visible = ref(false)
 	const props = defineProps({
 		content: {
-			type: Object, // Utilisez le type approprié selon vos besoins
+			type: Object,
 			required: true,
 		},
 	})
@@ -54,30 +60,24 @@
 		setTimeout(() => {
 			visible.value = true
 		}, 100)
-		if (props.content.is_category_complete	== true) {
+
+		if (props.content.is_category_complete == true) {
 			eventText.value = "complete the category of the challenge"
 			flagType.value = "category_complete"
-		}
-		else if(props.content.challenge == ""){
+		} else if (props.content.challenge == "") {
 			eventText.value = "defuse the challenge"
 			flagType.value = "defuse_bomb"
-		}
-		else if (props.content.solve_id == 0) {
+		} else if (props.content.solve_id == 0) {
 			eventText.value = "first_blood the challenge"
 			flagType.value = "first_blood"
-		}
-		else if (props.content.solve_id > 0) {
+		} else if (props.content.solve_id > 0) {
 			eventText.value = "solved the challenge"
 			flagType.value = "solved"
-		}
-
-		
-		else {
+		} else {
 			eventText.value = "solved"
-			console.log("failed")
+			flagType.value = "solved"
+			console.log("bizarre")
 		}
-		console.log(props.content)
-
 	})
 </script>
 
