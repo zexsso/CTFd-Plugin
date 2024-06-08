@@ -32,4 +32,8 @@
 		topFlagger.value = data.top_flagger
 		topFailer.value = data.top_failer
 	})
+
+	appStore.socket.on("new-fail", async (data) => {
+		topFailer.value = data.top_failer
+	})
 </script>

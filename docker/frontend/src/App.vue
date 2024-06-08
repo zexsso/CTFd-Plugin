@@ -63,6 +63,13 @@
 		const nowTime = Date.now()
 		const popupTime = popupInterval + popupDuration
 
+		if (nowTime - lasTriggerrTime < popupTime) {
+			const waitTime = popupTime - (nowTime - lasTriggerrTime)
+			lasTriggerrTime = Date.now()
+			await new Promise((r) => setTimeout(r, waitTime))
+		} else lasTriggerrTime = Date.now()
+		
+
 		if (type === "flag") {
 			data["team_rank"] = getTeamRank(data)
 			popupContent.value = data
@@ -73,14 +80,15 @@
 			else if (data.solve_id > 0) playAudio(solvedAudio)
 		} else if (type === "fail") {
 			popupFail.value = data
-			playAudio(failAudio)
+			if (Math.random() < 0.25) {
+				playAudio(failAudio)
+			}
 		}
 
 		await new Promise((r) => setTimeout(r, popupDuration))
 
 		if (type === "flag") popupContent.value = undefined
 		else if (type === "fail") popupFail.value = undefined
-		--popupQueueCount
 	}
 
 	appStore.socket.on("new-flag", (data) => {
@@ -106,11 +114,10 @@
 	}
 
 	@font-face {
-		font-family: "pcap_terminal";
-		/* src: url("@/assets/fonts/pcap_terminal/PCap Terminal Condensed.otf"); */
-		src: url("@/assets/fonts/hack/Hackout-Eaw5j.otf");
+		font-family: "hackout";
+		src: url("@/assets/fonts/hackout/hackout.otf");
 	}
 	body {
-		font-family: "pcap_terminal";
+		font-family: "hackout";
 	}
 </style>
